@@ -1,6 +1,6 @@
 import os
 import time
-import keyboard
+#import keyboard
 import random
 from copy import copy, deepcopy
 
@@ -39,22 +39,66 @@ class Symbols:
 	def four(self):
 		self.center.setCoordinate(1,1)
 		self.symbolType = 'four'
-		return [[".",".",".","."],['O','O','O','O'],[".",".",".","."],[".",".",".","."]]
+		return [[".",".",".","."],
+				['O','O','O','O'],
+				[".",".",".","."],
+				[".",".",".","."]]
+
+	def four90(self):
+		self.center.setCoordinate(1,1)
+		self.symbolType = 'four'
+		return [[".","O",".","."],
+				['.','O','.','.'],
+				[".","O",".","."],
+				[".","O",".","."]]
 
 	def L(self):
 		self.center.setCoordinate(1,1)		
 		self.symbolType = 'L'
-		return [['O','.','.','.'],["O","O","O","."],[".",".",".","."],[".",".",".","."]]
+		return [['O','.','.','.'],
+				["O","O","O","."],
+				[".",".",".","."],
+				[".",".",".","."]]
 
 	def L90(self):
 		self.center.setCoordinate(1,1)
 		self.symbolType = 'L90'
-		return [['.','O','O','.'],[".","O",".","."],[".","O",".","."],[".",".",".","."]]
+		return [['.','O','O','.'],
+				[".","O",".","."],
+				[".","O",".","."],
+				[".",".",".","."]]
+	def L180(self):
+		self.center.setCoordinate(1,1)
+		self.symbolType = 'L180'
+		return [['.','.','.','.'],
+				["O","O","O","."],
+				[".",".","O","."],
+				[".",".",".","."]]
+	def L270(self):
+		self.center.setCoordinate(1,1)
+		self.symbolType = 'L180'
+		return [['.','O','.','.'],
+				[".","O",".","."],
+				["O","O",".","."],
+				[".",".",".","."]]
+		
+	
 
 	def revL(self):
 		self.center.setCoordinate(1,1)
 		self.symbolType = 'revL'
-		return [['.','.','.','O'],[".","O","O","O"],[".",".",".","."],[".",".",".","."]]
+		return [['.','.','O','.'],
+				["O","O","O","."],
+				[".",".",".","."],
+				[".",".",".","."]]
+
+	def revL90(self):
+		self.center.setCoordinate(1,1)
+		self.symbolType = 'revL'
+		return [['.','O','.','.'],
+				[".","O",".","."],
+				[".","O","O","."],
+				[".",".",".","."]]
 
 	def cube(self):
 		self.center.setCoordinate(1,1)
@@ -183,12 +227,12 @@ def main():
 			continue
 		else:
 			print("Not fallen!")
-		if keyboard.is_pressed('k'):
-			print("Yey detected it!")
-			while not active.checkIfFallen() and not active.checkCollision(board):
-				active.refreshNextBoard()
-				if not active.checkIfFallen() and not active.checkCollision(board):
-					active.mergeBoards()
+		#if keyboard.is_pressed('k'):
+		#	print("Yey detected it!")
+		#	while not active.checkIfFallen() and not active.checkCollision(board):
+		#		active.refreshNextBoard()
+		#		if not active.checkIfFallen() and not active.checkCollision(board):
+		#			active.mergeBoards()
 
 		active.refreshNextBoard()
 		print("Refreshed")
