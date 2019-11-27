@@ -76,7 +76,7 @@ class Symbols:
 				[".",".",".","."]]
 	def L270(self):
 		self.center.setCoordinate(1,1)
-		self.symbolType = 'L180'
+		self.symbolType = 'L270'
 		return [['.','O','.','.'],
 				[".","O",".","."],
 				["O","O",".","."],
@@ -94,21 +94,61 @@ class Symbols:
 
 	def revL90(self):
 		self.center.setCoordinate(1,1)
-		self.symbolType = 'revL'
+		self.symbolType = 'revL180'
 		return [['.','O','.','.'],
 				[".","O",".","."],
 				[".","O","O","."],
 				[".",".",".","."]]
-
+	def revL180(self):
+		self.center.setCoordinate(1,1)
+		self.symbolType = 'revL180'
+		return [['.','.','.','.'],
+				["O","O","O","."],
+				["O",".",".","."],
+				[".",".",".","."]]
+	def revL270(self):
+		self.center.setCoordinate(1,1)
+		self.symbolType = 'revL270'
+		return [['O','O','.','.'],
+				[".","O",".","."],
+				[".","O",".","."],
+				[".",".",".","."]]
 	def cube(self):
 		self.center.setCoordinate(1,1)
 		self.symbolType = 'cube'
-		return [['O','O','.','.'],["O","O",".","."],[".",".",".","."],[".",".",".","."]]
+		return [['O','O','.','.'],
+				["O","O",".","."],
+				[".",".",".","."],
+				[".",".",".","."]]
 
 	def penis(self):
 		self.center.setCoordinate(1,1)
 		self.symbolType = 'penis'
-		return [['.','O','.','.'],["O","O","O","."],[".",".",".","."],[".",".",".","."]]
+		return [['.','O','.','.'],
+				["O","O","O","."],
+				[".",".",".","."],
+				[".",".",".","."]]
+	def penis90(self):
+		self.center.setCoordinate(1,1)
+		self.symbolType = 'penis90'
+		return [['.','O','.','.'],
+				[".","O","O","."],
+				[".","O",".","."],
+				[".",".",".","."]]
+	def penis180(self):
+		self.center.setCoordinate(1,1)
+		self.symbolType = 'penis180'
+		return [['.','.','.','.'],
+				["O","O","O","."],
+				[".","O",".","."],
+				[".",".",".","."]]
+	def penis270(self):
+		self.center.setCoordinate(1,1)
+		self.symbolType = 'penis270'
+		return [['.','O','.','.'],
+				["O","O",".","."],
+				[".","O",".","."],
+				[".",".",".","."]]
 
 class activeObject:
 	symbol = []
