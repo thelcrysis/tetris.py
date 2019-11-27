@@ -207,7 +207,7 @@ def main():
 	i=19
 	while(True):
 		displayBoard = initBoard()
-		
+		#inits board &&& and used as git explanation
 
 		if i==19:
 			active = newObject(sym)
