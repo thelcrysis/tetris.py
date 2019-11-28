@@ -1,36 +1,55 @@
+from Symbols import *
+from Coordinate import *
+from Board import *
+
 class activeObject:
 	symbol = []
 	symbolBoard = []
 	nextSymbolBoard = []
 	symbolType = ''
 	symbolFamily = ''
-   center = Coordinate(0,0)
+	center = Coordinate(0,0)
+	sym=Symbols()
 
-   Four = ('four','four90')
-   L = ('L','L90','L180','L270')
-   RevL = ('revL','revL90','revL180','revL270')
-   Penis = ('penis','penis90','penis180','penis270')
+	Four = ('four','four90')
+	L = ('L','L90','L180','L270')
+	RevL = ('revL','revL90','revL180','revL270')
+	Penis = ('penis','penis90','penis180','penis270')
 
 
 	def __init__(self,symbol,sym):
+		self.sym = sym
 		self.symbol = symbol
 		self.symbolBoard = initBoard()
-		self.nextSymbolBoard = initBoard()
+		self.nextSymbolBoard = initBoard() #WARNI
 		self.symbolType = sym.symbolType
 		self.center = sym.getCenter()
-      self.symbolFamily = sym.symbolFamily
+		self.symbolFamily = sym.symbolFamily
 
 		addToBoard(self.symbolBoard,symbol)
 		addToBoard(self.nextSymbolBoard,symbol)
-   def rotate(self):                #brace youselves for the shitties code written
-      if self.symbolFamily == 'Cube':
-         return
-      if self.symbolFamily == 'L':
-         index = L.index(self.symbolType)
-         index = (index + 1)%len(L)
-         self.symbol = 
-	
-	def getBoard(self):
+	def rotate(self):                #brace youselves for the shitties code written
+		
+		if self.symbolFamily == 'Cube':        #actually not that bad
+			pass
+		elif self.symbolFamily == 'L':
+			index = self.L.index(self.symbolType)
+			index = (index + 1)%len(self.L)
+			self.symbol = self.sym.nameToSymbol(self.L[index])
+		elif self.symbolFamily == 'RevL':
+			index = self.RevL.index(self.symbolType)
+			index = (index + 1)%len(self.RevL)
+			self.symbol = self.sym.nameToSymbol(self.RevL[index])          
+		elif self.symbolFamily == 'Penis':
+			index = self.Penis.index(self.symbolType)
+			index = (index + 1)%len(self.Penis)
+			self.symbol = self.sym.nameToSymbol(self.Penis[index])
+		elif self.symbolFamily == 'Four':                                 		# TODO:finish rotate() 
+			index = self.Four.index(self.symbolType)                            #     zalijepiti novi simbol preko postojeceg koristeci info iz center
+			index = (index + 1)%len(self.Four)                                  #     ali umjesto center koristiti rubni lijevi od 4x4 matrice (X)
+			self.symbol = self.sym.nameToSymbol(self.Four[index])           	#     - mozda definirati tu poziciju u Symbols (./)
+	def getBoard(self):                                                  		# FIXME:missing Symbol.symboltype change 
+																				# 	  - dodati zamijenu symboltype... inace ne moze rotirati vise od jednom (X)
 		return self.symbolBoard
 
 	def checkCollision(self,board):
