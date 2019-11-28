@@ -1,8 +1,11 @@
 import os
 import time
-#import keyboard
 import random
 from copy import copy, deepcopy
+import curses
+from pynput.keyboard import Key, Controller
+from Coordinate import *
+from Symbols import *
 
 def initBoard():
 	h,w = 20,8
@@ -17,150 +20,18 @@ def drawBoard(board):
 		print("\n")
 	
 
-
-	
-class Coordinate:
-	x = 0
-	y = 0
-	def __init__(self,x,y):
-		self.x = x
-		self.y = y
-	def setCoordinate(self,x,y):
-		self.x = x
-		self.y = y
-
-class Symbols:
-	center = Coordinate(0,0)
-	symbolType = ''
-	
-	def getSymbolType(self):
-		return self.symbolType
-
-	def four(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'four'
-		return [[".",".",".","."],
-				['O','O','O','O'],
-				[".",".",".","."],
-				[".",".",".","."]]
-
-	def four90(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'four'
-		return [[".","O",".","."],
-				['.','O','.','.'],
-				[".","O",".","."],
-				[".","O",".","."]]
-
-	def L(self):
-		self.center.setCoordinate(1,1)		
-		self.symbolType = 'L'
-		return [['O','.','.','.'],
-				["O","O","O","."],
-				[".",".",".","."],
-				[".",".",".","."]]
-
-	def L90(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'L90'
-		return [['.','O','O','.'],
-				[".","O",".","."],
-				[".","O",".","."],
-				[".",".",".","."]]
-	def L180(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'L180'
-		return [['.','.','.','.'],
-				["O","O","O","."],
-				[".",".","O","."],
-				[".",".",".","."]]
-	def L270(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'L270'
-		return [['.','O','.','.'],
-				[".","O",".","."],
-				["O","O",".","."],
-				[".",".",".","."]]
-		
-	
-
-	def revL(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'revL'
-		return [['.','.','O','.'],
-				["O","O","O","."],
-				[".",".",".","."],
-				[".",".",".","."]]
-
-	def revL90(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'revL180'
-		return [['.','O','.','.'],
-				[".","O",".","."],
-				[".","O","O","."],
-				[".",".",".","."]]
-	def revL180(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'revL180'
-		return [['.','.','.','.'],
-				["O","O","O","."],
-				["O",".",".","."],
-				[".",".",".","."]]
-	def revL270(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'revL270'
-		return [['O','O','.','.'],
-				[".","O",".","."],
-				[".","O",".","."],
-				[".",".",".","."]]
-	def cube(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'cube'
-		return [['O','O','.','.'],
-				["O","O",".","."],
-				[".",".",".","."],
-				[".",".",".","."]]
-
-	def penis(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'penis'
-		return [['.','O','.','.'],
-				["O","O","O","."],
-				[".",".",".","."],
-				[".",".",".","."]]
-	def penis90(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'penis90'
-		return [['.','O','.','.'],
-				[".","O","O","."],
-				[".","O",".","."],
-				[".",".",".","."]]
-	def penis180(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'penis180'
-		return [['.','.','.','.'],
-				["O","O","O","."],
-				[".","O",".","."],
-				[".",".",".","."]]
-	def penis270(self):
-		self.center.setCoordinate(1,1)
-		self.symbolType = 'penis270'
-		return [['.','O','.','.'],
-				["O","O",".","."],
-				[".","O",".","."],
-				[".",".",".","."]]
-
 class activeObject:
 	symbol = []
 	symbolBoard = []
 	nextSymbolBoard = []
 	symbolType = ''
 	center = Coordinate(0,0)
-	def __init__(self,symbol,symType):
+	def __init__(self,symbol,sym):
 		self.symbol = symbol
 		self.symbolBoard = initBoard()
 		self.nextSymbolBoard = initBoard()
-		self.symbolType = symType
+		self.symbolType = sym.symbolType
+		self.center = sym.getCenter()
 		addToBoard(self.symbolBoard,symbol)
 		addToBoard(self.nextSymbolBoard,symbol)
 
@@ -191,7 +62,10 @@ class activeObject:
 				else:
 					a = '.'
 				self.nextSymbolBoard[i][j] = a
+		self.center.drop()
+		print(self.center)
 		
+
 def addToBoard(board,elem):
 	rows = len(elem)
 	columns = len(elem[0])
@@ -234,69 +108,68 @@ def newObject(sym):
 	elif rand == 6:
 		shape = sym.penis() 
 	symType = sym.getSymbolType() 
-	active = activeObject(shape,symType)
+	active = activeObject(shape,sym)
 	return active
 
 def main():
+
 	board = []
 	board = initBoard()
 
 	sym = Symbols()
 	
-	
+	st = 5000
+	cst = 5000
 	i=19
 	while(True):
-		displayBoard = initBoard()
-		#inits board &&& and used as git explanation
-
-		if i==19:
-			active = newObject(sym)
-			print("Made new object and checking for end...")
+		if cst == 5000:
+			displayBoard = initBoard()
+			cst = 0
+			if i==19:
+				active = newObject(sym)
+				print("Made new object and checking for end...")
+				if (active.checkCollision(board)):
+					print("END detected, quitting...")
+					break
+				i=0
+				continue
+			if (active.checkIfFallen()):
+				addToBoard(board,active.getBoard())
+				#while (True):
+				#	drawBoard(board)
+				#	print("\n")
+				print("Fallen!")
+				i = 19
+				cst = 5000
+				print("i 19")
+				continue
+			else:
+				print("Not fallen!")
+		
+			active.refreshNextBoard()
+			print("Refreshed")
 			if (active.checkCollision(board)):
-				print("END detected, quitting...")
-				break
-			i=0
-			continue
-		if (active.checkIfFallen()):
-			addToBoard(board,active.getBoard())
-			#while (True):
-			#	drawBoard(board)
-			#	print("\n")
-			print("Fallen!")
-			i = 19
-			continue
-		else:
-			print("Not fallen!")
-		#if keyboard.is_pressed('k'):
-		#	print("Yey detected it!")
-		#	while not active.checkIfFallen() and not active.checkCollision(board):
-		#		active.refreshNextBoard()
-		#		if not active.checkIfFallen() and not active.checkCollision(board):
-		#			active.mergeBoards()
+				addToBoard(board,active.getBoard())
+				i = 19
+				cst = 5000
 
-		active.refreshNextBoard()
-		print("Refreshed")
-		if (active.checkCollision(board)):
-			addToBoard(board,active.getBoard())
-			i = 19
-			print("Collision!")
-			continue
-		else:
-			print("MERGED")
-			active.mergeBoards()
-		addToBoard(displayBoard,board)
-		addToBoard(displayBoard,active.getBoard())
-		print(time.gmtime())
-		print("----------------------_dispBOARD_-------------------------")
+				print("Collision!")
+				continue
+			else:
+				print("MERGED")
+				active.mergeBoards()
+			addToBoard(displayBoard,board)
+			addToBoard(displayBoard,active.getBoard())
+			print(time.gmtime())
+			print("----------------------_dispBOARD_-------------------------")
 
-		drawBoard(displayBoard)
-		print("----------------------_BOARD_-------------------------")
-		#drawBoard(board)
+			drawBoard(displayBoard)
+			print("----------------------_BOARD_-------------------------")
+			#drawBoard(board)
 
-		#print("Display")
-		time.sleep(0.12)
-
+			#print("Display")
+		time.sleep(0.0001)
+		cst += 1
 		i=i+1
-
 if __name__=="__main__":
 	main()	
