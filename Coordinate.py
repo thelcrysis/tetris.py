@@ -11,7 +11,7 @@ class Coordinate:
 	def drop(self):
 		self.y += 1
 	def left(self):
-		self.x -= 1
+		self.x += -1
 	def right(self):
 		self.x += 1
 	def __str__(self):

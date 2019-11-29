@@ -105,14 +105,27 @@ def main():
 			print("----------------------_BOARD_-------------------------")
 			#drawBoard(board)
 			## trying out rotates
-			randominteger = random.randint(1,5)
-			if randominteger == 3:
+			randominteger = random.randint(1,10)
+			if randominteger in [3,5,7,9]:
 				#print('rotato' + active.leftCorner.__str__())
 				try:
 					active.rotate(board)
 				except IndexError:
 					pass
-			#print("Display")
+			#if randominteger in [1,2]:
+			#	try:
+			#		active.moveHorizontally(board,'left')
+			#		print('left')
+			#
+			#	except IndexError:
+			#		pass
+			#if randominteger in [6,8]:
+			#	try:
+			#		active.moveHorizontally(board,'right')
+			#		print('right')
+			#	except IndexError:
+			#		pass
+			##print("Display")
 		time.sleep(0.0001)
 		cst += 1
 		i=i+1

@@ -31,20 +31,46 @@ class activeObject:
 
 		addToBoard(self.symbolBoard,symbol)
 		addToBoard(self.nextSymbolBoard,symbol)
-	
-	def overwriteSymbol(self,board,leftCorner):
+																														# ** return is done by directly altering objects
+		
+	def overwriteSymbolRotate(self,board):
 		lcx = self.leftCorner.getX()
 		lcy = self.leftCorner.getY()
 		self.nextSymbolBoard = deepcopy(self.symbolBoard)												# overwriting current symbol with a new one
 		for i in range(4):																						# used by rotate and will be used with left and right
-			self.nextSymbolBoard[lcy+i]																		# ** return is done by directly altering objects
 			for j in range(4):																					# nextSymbol board, usually mergeBoard() needed
-				self.nextSymbolBoard[lcy+i][lcx+j] = str(self.symbol[i][j])  						# after
-		
+				self.nextSymbolBoard[lcy+i][lcx+j] = str(self.symbol[i][j])  						# after || CANNOT BE USED FOR THIS
 		if self.checkCollision(board):
 			self.nextSymbolBoard = initBoard()  
 			return False
 		else: return True
+
+	def moveHorizontally(self,board,side='left'):
+		if side not in ['left','right']: raise TypeError("param 'side' must be equal to 'left' or right")
+		
+		lcx = self.leftCorner.getX()		#part that should be erased aka replaced with dots
+
+		if side=='left': self.leftCorner.left()
+		else: self.leftCorner.right()
+		lcy2 = self.leftCorner.getY()							#TODO:restrict left and right
+		new_lcx = self.leftCorner.getX()						#TODO: make left and right work 
+																		#last change... erasing symbol from previous position (curr not working)
+		
+		deltaPosition = -1 if side == 'left' else 1
+		self.nextSymbolBoard = deepcopy(self.symbolBoard)
+		for i in range(4):
+			for j in range(4):
+				self.nextSymbolBoard[lcy2+i][lcx+j] = '.'				#erases symbol from original position
+		for i in range(4):
+			for j in range(4):
+				#self.nextSymbolBoard[lcy2+i][new_lcx+j] = str(self.symbol[i][j])
+				pass
+		if self.checkCollision(board):
+			self.nextSymbolBoard = initBoard()
+			return False
+		print(self.leftCorner)
+
+		self.mergeBoards
 
 	def rotate(self,board):                #brace youselves for the shitties code written
 		#if self.leftCorner.getY() >= 17: return          can be replace with try;except IndexError when called or same try;except inside the fun
@@ -71,7 +97,7 @@ class activeObject:
 			self.symbolType = self.Four[index]												# 
 			self.symbol = self.sym.nameToSymbol(self.Four[index])           	
 
-		if self.overwriteSymbol(board,self.leftCorner):
+		if self.overwriteSymbolRotate(board):
 			self.mergeBoards()							
 			
 											#could be optimized by checking for collision before creating whole new board
