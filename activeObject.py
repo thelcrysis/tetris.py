@@ -31,6 +31,21 @@ class activeObject:
 
 		addToBoard(self.symbolBoard,symbol)
 		addToBoard(self.nextSymbolBoard,symbol)
+	
+	def overwriteSymbol(self,board,leftCorner):
+		lcx = self.leftCorner.getX()
+		lcy = self.leftCorner.getY()
+		self.nextSymbolBoard = deepcopy(self.symbolBoard)												# overwriting current symbol with a new one
+		for i in range(4):																						# used by rotate and will be used with left and right
+			self.nextSymbolBoard[lcy+i]																		# ** return is done by directly altering objects
+			for j in range(4):																					# nextSymbol board, usually mergeBoard() needed
+				self.nextSymbolBoard[lcy+i][lcx+j] = str(self.symbol[i][j])  						# after
+		
+		if self.checkCollision(board):
+			self.nextSymbolBoard = initBoard()  
+			return False
+		else: return True
+
 	def rotate(self,board):                #brace youselves for the shitties code written
 		#if self.leftCorner.getY() >= 17: return          can be replace with try;except IndexError when called or same try;except inside the fun
 		if self.symbolFamily == 'Cube':        #actually not that bad
@@ -56,18 +71,10 @@ class activeObject:
 			self.symbolType = self.Four[index]												# 
 			self.symbol = self.sym.nameToSymbol(self.Four[index])           	
 
-		lcx = self.leftCorner.getX()
-		lcy = self.leftCorner.getY()
-		self.nextSymbolBoard = deepcopy(self.symbolBoard)												# overwriting current symbol with rotated one
-		for i in range(4):																		#FIXME: something doesnt work with RevL
-			self.nextSymbolBoard[lcy+i]
-			for j in range(4):
-				self.nextSymbolBoard[lcy+i][lcx+j] = str(self.symbol[i][j])  
-		
-		if self.checkCollision(board):
-			self.nextSymbolBoard = initBoard()  #discards all changes created by rotating
-			return										#could be optimized by checking for collision before creating whole new board
-		self.mergeBoards()							#...defining all rotated shape 'pixels' and checking if any of those are overlapping with 
+		if self.overwriteSymbol(board,self.leftCorner):
+			self.mergeBoards()							
+			
+											#could be optimized by checking for collision before creating whole new board
 															# 	 board
 
 

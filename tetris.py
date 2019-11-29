@@ -53,10 +53,10 @@ def main():
 	board = initBoard()
 
 	sym = Symbols()
-	standardCST = 5000
-	st = standardCST
-	cst = standardCST
-	i=19
+	standardST = 2500
+	st = standardST
+	cst = standardST
+	i=19    #number of rows --- used to determining if its time to generate new object TODO: replace with a flag
 	while(True):
 		if cst == st:
 			displayBoard = initBoard()
@@ -107,7 +107,7 @@ def main():
 			## trying out rotates
 			randominteger = random.randint(1,5)
 			if randominteger == 3:
-				print('rotato' + active.leftCorner.__str__())
+				#print('rotato' + active.leftCorner.__str__())
 				try:
 					active.rotate(board)
 				except IndexError:
