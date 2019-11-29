@@ -4,7 +4,7 @@ import random
 from copy import copy, deepcopy
 import curses #not used as of yet
 from pynput.keyboard import Key, Controller #not used as of yet
-
+import random
 #my modules
 from Coordinate import *
 from Symbols import *
@@ -53,12 +53,12 @@ def main():
 	board = initBoard()
 
 	sym = Symbols()
-	
-	st = 5000
-	cst = 5000
+	standardCST = 5000
+	st = standardCST
+	cst = standardCST
 	i=19
 	while(True):
-		if cst == 5000:
+		if cst == st:
 			displayBoard = initBoard()
 			cst = 0
 			if i==19:
@@ -69,6 +69,8 @@ def main():
 					break
 				i=0
 				continue
+				
+
 			if (active.checkIfFallen()):
 				addToBoard(board,active.getBoard())
 				#while (True):
@@ -76,7 +78,7 @@ def main():
 				#	print("\n")
 				print("Fallen!")
 				i = 19
-				cst = 5000
+				cst = st
 				print("i 19")
 				continue
 			else:
@@ -87,7 +89,7 @@ def main():
 			if (active.checkCollision(board)):
 				addToBoard(board,active.getBoard())
 				i = 19
-				cst = 5000
+				cst = st
 
 				print("Collision!")
 				continue
@@ -102,7 +104,14 @@ def main():
 			drawBoard(displayBoard)
 			print("----------------------_BOARD_-------------------------")
 			#drawBoard(board)
-
+			## trying out rotates
+			randominteger = random.randint(1,5)
+			if randominteger == 3:
+				print('rotato' + active.leftCorner.__str__())
+				try:
+					active.rotate(board)
+				except IndexError:
+					pass
 			#print("Display")
 		time.sleep(0.0001)
 		cst += 1
