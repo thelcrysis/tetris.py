@@ -1,7 +1,14 @@
+class Board:
+	height = 20
+	width = 8
+	@classmethod
+	def getWidth(cls): return cls.width
+	@classmethod
+	def getHeight(cls): return cls.height
+
 def initBoard():
-	h,w = 20,8
-	a = [['.' for x in range(w)] for y in range(h)]
-	return a
+		a = [['.' for x in range(Board.width)] for y in range(Board.height)]
+		return a
 
 def drawBoard(board):
 	#os.system("clear")
@@ -9,7 +16,7 @@ def drawBoard(board):
 		for j in range(len(board[0])):
 			print(board[i][j], end="  ")
 		print("\n")
-	
+
 def addToBoard(board,elem):
 	rows = len(elem)
 	columns = len(elem[0])

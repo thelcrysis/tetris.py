@@ -53,7 +53,7 @@ def main():
 	board = initBoard()
 
 	sym = Symbols()
-	standardST = 2500
+	standardST = 5000
 	st = standardST
 	cst = standardST
 	i=19    #number of rows --- used to determining if its time to generate new object TODO: replace with a flag
@@ -63,69 +63,72 @@ def main():
 			cst = 0
 			if i==19:
 				active = newObject(sym)
-				print("Made new object and checking for end...")
+				#print("Made new object and checking for end...")
 				if (active.checkCollision(board)):
-					print("END detected, quitting...")
+					#print("END detected, quitting...")
 					break
 				i=0
 				continue
-				
-
-			if (active.checkIfFallen()):
-				addToBoard(board,active.getBoard())
-				#while (True):
-				#	drawBoard(board)
-				#	print("\n")
-				print("Fallen!")
-				i = 19
-				cst = st
-				print("i 19")
-				continue
-			else:
-				print("Not fallen!")
-		
-			active.refreshNextBoard()
-			print("Refreshed")
-			if (active.checkCollision(board)):
-				addToBoard(board,active.getBoard())
-				i = 19
-				cst = st
-
-				print("Collision!")
-				continue
-			else:
-				print("MERGED")
-				active.mergeBoards()
-			addToBoard(displayBoard,board)
-			addToBoard(displayBoard,active.getBoard())
-			print(time.gmtime())
-			print("----------------------_dispBOARD_-------------------------")
-
-			drawBoard(displayBoard)
-			print("----------------------_BOARD_-------------------------")
-			#drawBoard(board)
-			## trying out rotates
+				## trying out rotates
 			randominteger = random.randint(1,10)
+			outputmove = ''
 			if randominteger in [3,5,7,9]:
-				#print('rotato' + active.leftCorner.__str__())
 				try:
 					active.rotate(board)
+					outputmove += '| Rotate' 
 				except IndexError:
 					pass
-			#if randominteger in [1,2]:
-			#	try:
-			#		active.moveHorizontally(board,'left')
-			#		print('left')
-			#
-			#	except IndexError:
-			#		pass
+			if randominteger >0:
+				try:
+					active.moveHorizontally(board,'left')
+					outputmove += '| Left'
+				except IndexError:
+					pass
 			#if randominteger in [6,8]:
 			#	try:
 			#		active.moveHorizontally(board,'right')
 			#		print('right')
 			#	except IndexError:
+			#		print('INDEXXX')
 			#		pass
-			##print("Display")
+				
+			
+
+			if (active.checkIfFallen()):
+				addToBoard(board,active.getBoard())
+				
+				i = 19
+				cst = st
+				#print("i 19")
+				continue
+			else:
+				#print("Not fallen!")
+				pass
+			active.refreshNextBoard()
+			#print("Refreshed")
+			if (active.checkCollision(board)):
+				addToBoard(board,active.getBoard())
+				i = 19
+				cst = st
+
+				#print("Collision!")
+				continue
+			else:
+				#print("MERGED")
+				active.mergeBoards()
+			
+			addToBoard(displayBoard,board)
+			addToBoard(displayBoard,active.getBoard())
+			#print(time.gmtime())
+			drawBoard(displayBoard)
+			print("----------------------INFO-------------------------")
+			print(outputmove)
+			output1 = "%10s | %10s | %10s" % ('leftCorner','shapeLeft','shapeRight')
+			outputb = "%10s | %10s | %10s" % (str(active.leftCorner.x),str(active.shapeLeftCorner.x),str(active.shapeRightCorner.x))
+			print(output1)
+			print(outputb)
+			#drawBoard(board)
+			
 		time.sleep(0.0001)
 		cst += 1
 		i=i+1

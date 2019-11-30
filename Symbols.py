@@ -2,6 +2,9 @@ from Coordinate import *
 class Symbols:
 	center = Coordinate()
 	leftCorner = Coordinate()
+	shapeRightCorner = Coordinate()
+	shapeLeftCorner = Coordinate()
+
 	symbolType = ''
 	symbolFamily = ''
 	def getSymbolType(self):
@@ -29,6 +32,10 @@ class Symbols:
 	def four(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+3,y)
+		
 		self.symbolType = 'four'
 		self.symbolFamily = 'Four'
 		return [[".",".",".","."],
@@ -39,6 +46,10 @@ class Symbols:
 	def four90(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		self.shapeLeftCorner.setCoordinate(x+1,y)
+		self.shapeRightCorner.setCoordinate(x+1,y)
+		
 		self.symbolType = 'four'
 		self.symbolFamily = 'Four'
 		return [[".","O",".","."],
@@ -49,6 +60,10 @@ class Symbols:
 	def L(self,x=0,y=0):
 		self.center.setCoordinate(1,1)		
 		self.leftCorner.setCoordinate(x,y)
+
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+2,y)
+		
 		self.symbolType = 'L'
 		self.symbolFamily = 'L'
 
@@ -60,6 +75,10 @@ class Symbols:
 	def L90(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+
+		self.shapeLeftCorner.setCoordinate(x+1,y)
+		self.shapeRightCorner.setCoordinate(x+2,y)
+
 		self.symbolType = 'L90'
 		self.symbolFamily = 'L'
 		return [['.','O','O','.'],
@@ -69,6 +88,10 @@ class Symbols:
 	def L180(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+2,y)
+
 		self.symbolType = 'L180'
 		self.symbolFamily = 'L'
 		return [['.','.','.','.'],
@@ -78,6 +101,10 @@ class Symbols:
 	def L270(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+1,y)
+
 		self.symbolType = 'L270'
 		self.symbolFamily = 'L'
 		return [['.','O','.','.'],
@@ -88,6 +115,10 @@ class Symbols:
 	def revL(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+2,y)
+
 		self.symbolType = 'revL'
 		self.symbolFamily = 'RevL'
 		
@@ -99,6 +130,10 @@ class Symbols:
 	def revL90(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		self.shapeLeftCorner.setCoordinate(x+1,y)
+		self.shapeRightCorner.setCoordinate(x+2,y)
+
 		self.symbolType = 'revL180'
 		self.symbolFamily = 'RevL'
 		return [['.','O','.','.'],
@@ -108,6 +143,10 @@ class Symbols:
 	def revL180(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+2,y)
+
 		self.symbolType = 'revL180'
 		self.symbolFamily = 'RevL'
 		return [['.','.','.','.'],
@@ -117,6 +156,10 @@ class Symbols:
 	def revL270(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+1,y)
+
 		self.symbolType = 'revL270'
 		self.symbolFamily = 'RevL'
 		return [['O','O','.','.'],
@@ -126,6 +169,10 @@ class Symbols:
 	def cube(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+1,y)
+
 		self.symbolType = 'cube'
 		self.symbolFamily = 'Cube'
 		
@@ -137,6 +184,11 @@ class Symbols:
 	def penis(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+2,y)
+
 		self.symbolType = 'penis'
 		self.symbolFamily = 'Penis'
 
@@ -147,6 +199,10 @@ class Symbols:
 	def penis90(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		self.shapeLeftCorner.setCoordinate(x+1,y)
+		self.shapeRightCorner.setCoordinate(x+2,y)
+
 		self.symbolType = 'penis90'
 		self.symbolFamily = 'Penis'
 		return [['.','O','.','.'],
@@ -156,6 +212,10 @@ class Symbols:
 	def penis180(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+2,y)
+		
 		self.symbolType = 'penis180'
 		self.symbolFamily = 'Penis'
 		return [['.','.','.','.'],
@@ -165,6 +225,10 @@ class Symbols:
 	def penis270(self,x=0,y=0):
 		self.center.setCoordinate(1,1)
 		self.leftCorner.setCoordinate(x,y)
+		
+		self.shapeLeftCorner.setCoordinate(x,y)
+		self.shapeRightCorner.setCoordinate(x+1,y)
+
 		self.symbolType = 'penis270'
 		self.symbolFamily = 'Penis'
 		return [['.','O','.','.'],
